@@ -1,0 +1,4 @@
+NomieToMySQL
+CouchDB==1.1
+mysql-connector==2.1.4
+
