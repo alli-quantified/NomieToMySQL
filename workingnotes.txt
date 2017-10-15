@@ -1,0 +1,23 @@
+## Raw commands via Nomie support
+
+#!/bin/bash
+
+export AUTHOST=http://user:password@localhost:5984
+
+# Create Nomie user
+curl -X PUT $AUTHOST/_config/admins/nomie -d '"password"'
+
+# Set up CouchDB config - CORS
+curl -X PUT $AUTHOST/_config/httpd/enable_cors -d '"true"'
+curl -X PUT $AUTHOST/_config/cors/origins -d '"*"'
+curl -X PUT $AUTHOST/_config/cors/credentials -d '"true"'
+curl -X PUT $AUTHOST/_config/cors/methods -d '"GET, PUT, POST, HEAD, DELETE"'
+curl -X PUT $AUTHOST/_config/cors/headers -d '"accept, authorization, content-type, origin, referer, x-csrf-token"'
+
+# Set bind address - open to all
+curl -X PUT $AUTHOST/_config/httpd/bind_address -d '"0.0.0.0"'
+
+# Set up nomie databases
+curl -X PUT $AUTHOST/nomie_events
+curl -X PUT $AUTHOST/nomie_meta
+curl -X PUT $AUTHOST/nomie_trackers
